@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  application:
+    name: api-gateway
+  mvc:
+    problemdetails:
+      enabled: true
+  # El gateway es sin estado y no usa Redis; se deja la URL para mantener la convención
+  # común de configuración de los servicios.
+  data:
+    redis:
+      url: ${REDIS_URL:redis://localhost:6379}
+      timeout: 2s
+
+cors:
+  allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
+
+services:
+  sri:
+    url: ${SRI_SERVICE_URL:http://localhost:8081}
+    timeout: 20s
+  ant:
+    url: ${ANT_SERVICE_URL:http://localhost:8082}
+    # La ANT tiene timeout de 8 s; se deja margen para conexión + lectura + caché.
+    timeout: 25s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

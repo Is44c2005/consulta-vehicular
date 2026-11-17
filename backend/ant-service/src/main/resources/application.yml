@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  application:
+    name: ant-service
+  data:
+    redis:
+      url: ${REDIS_URL:redis://localhost:6379}
+      timeout: 2s
+      connect-timeout: 2s
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+  mvc:
+    problemdetails:
+      enabled: true
+
+ant:
+  base-url: ${ANT_BASE_URL:https://consultaweb.ant.gob.ec/PortalWEB/paginas/clientes}
+  timeout: 8s
+  cache:
+    fresh-ttl: 5m
+    stale-ttl: 7d
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  health:
+    redis:
+      enabled: false

@@ -1,0 +1,33 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: sri-service
+  data:
+    redis:
+      url: ${REDIS_URL:redis://localhost:6379}
+      timeout: 2s
+      connect-timeout: 2s
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+  mvc:
+    problemdetails:
+      enabled: true
+
+sri:
+  catastro-url: ${SRI_CATASTRO_URL:https://srienlinea.sri.gob.ec/sri-catastro-sujeto-servicio-internet/rest}
+  matriculacion-url: ${SRI_MATRICULACION_URL:https://srienlinea.sri.gob.ec/sri-matriculacion-vehicular-recaudacion-servicio-internet/rest}
+  timeout: 8s
+  cache:
+    ttl: 1h
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  health:
+    redis:
+      enabled: false
